@@ -52,9 +52,10 @@ app.get('/fundraisers/search', (req, res) => {
   var organizer = req.query.organizer;
   var city = req.query.city;
   var category = req.query.category;
+  var active = req.query.active;
 
   // Start building the base query to search active fundraisers
-  var query = 'SELECT * FROM fundraiser f LEFT join category c ON f.CATEGORY_ID = c.CATEGORY_ID where active = 1'
+  var query = 'SELECT * FROM fundraiser f LEFT join category c ON f.CATEGORY_ID = c.CATEGORY_ID where 1 = 1 '
   var queryParams = [];
 
   if (organizer) {
@@ -68,6 +69,11 @@ app.get('/fundraisers/search', (req, res) => {
   if (category) {
     query += ' AND f.CATEGORY_ID = ?';
     queryParams.push(category);
+  }
+
+  if (active !== null) {
+    query += ' AND f.ACTIVE = ?';
+    queryParams.push(active);
   }
 
   connection.query(query, queryParams, (err, records) => {
