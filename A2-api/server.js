@@ -1,6 +1,7 @@
 var express = require('express');
 var cors = require('cors');
 var dbcon = require('./crowdfunding_db');
+var path = require('path');
 
 // Initialize Express app
 var app = express();
@@ -12,6 +13,8 @@ var connection = dbcon.getconnection();
 app.use(cors());
 // Use json to parse post body
 app.use(express.json());
+
+app.use( express.static('../A2-clientside/dist/A2-clientside/browser'));
 
 // Fetches all active fundraisers with their corresponding category data.
 app.get('/fundraisers', (req, res) => {
@@ -183,6 +186,10 @@ app.delete("/fundraiser/:id", (req, res) => {
       }
     });
 });
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../A2-clientside/dist/A2-clientside/browser", "index.html"));
+})
 
 // Start the server and listen on port 8080
 app.listen(8080, function() {
