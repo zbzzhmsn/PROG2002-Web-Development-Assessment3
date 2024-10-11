@@ -10,6 +10,8 @@ var connection = dbcon.getconnection();
 
 // Use CORS middleware to allow cross-origin requests from any domain
 app.use(cors());
+// Use json to parse post body
+app.use(express.json());
 
 // Fetches all active fundraisers with their corresponding category data.
 app.get('/fundraisers', (req, res) => {
@@ -76,6 +78,32 @@ app.get('/fundraisers/:id', (req, res) => {
       res.send(records)
     }
   })
+});
+
+app.get("/fundraiser/donations/:id", (req, res) => {
+  var id = req.params.id
+  connection.query('SELECT * FROM donation WHERE FUNDRAISER_ID = ' + id, (err, records) => {
+    if (err) {
+      console.log("Query error");
+    } else {
+      res.send(records)
+    }
+  });
+});
+
+app.post("/fundraiser/donations", (req, res) => {
+  var date = new Date()
+  var giver = req.body.giver
+  var amount = req.body.amount
+  var fundraiseId = req.body.fundraiseId
+
+  connection.query('INSERT INTO donation(DATE, AMOUNT, GIVER, FUNDRAISER_ID) VALUES(?,?,?,?)', [date, amount, giver, fundraiseId], (err, records) => {
+    if (err) {
+      console.log("Query error", err);
+    } else {
+      res.send(records)
+    }
+  });
 });
 
 // Start the server and listen on port 8080
