@@ -1,0 +1,56 @@
+<!-- Header Section -->
+<header>
+  <nav>
+    <div class="logo">Fundraiser</div>
+  </nav>
+</header>
+
+<!-- Main Content Section -->
+<main>
+  <section class="fundraisers-list">
+    <button class="btn primary" routerLink="/new-fundraiser">Create Fundraiser</button>
+
+    <div id="fundraisers_list">
+      <table class="fundraisers-table">
+        <thead>
+        <tr>
+          <th>Organizer</th>
+          <th>ID</th>
+          <th>Caption</th>
+          <th>Target (AUD)</th>
+          <th>Current (AUD)</th>
+          <th>City</th>
+          <th>Status</th>
+          <th>Category</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let fundraiser of fundraisers">
+          <td>{{fundraiser.ORGANIZER}}</td>
+          <td>{{fundraiser.FUNDRAISER_ID}}</td>
+          <td>{{fundraiser.CAPTION}}</td>
+          <td>{{fundraiser.TARGET_FUNDING}}</td>
+          <td>{{fundraiser.CURRENT_FUNDING}}</td>
+          <td>{{fundraiser.CITY}}</td>
+          <td class="status {{fundraiser.ACTIVE === 1 ? 'active' : 'inactive'}}">
+            {{fundraiser.ACTIVE === 1 ? 'Active' : 'Suspended'}}
+          </td>
+          <td>{{fundraiser.NAME}}</td>
+          <td>
+            <button class="btn primary" style="margin-right: 10px;padding: 4px 6px" routerLink="/edit-fundraiser/{{fundraiser.FUNDRAISER_ID}}">Edit</button>
+            <button class="btn secondary" style="padding: 4px 6px" (click)="deleteFundraiser(fundraiser)">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </section>
+</main>
+
+<!-- Footer Section -->
+<footer>
+  <p>Contact Us: zbzzh&#64;msn.com | +1 (987) 654-3210</p>
+  <p>789 Unity Avenue, Floor 5, Caretown, NY 10001, United States</p>
+</footer>

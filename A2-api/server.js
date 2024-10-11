@@ -24,6 +24,17 @@ app.get('/fundraisers', (req, res) => {
   })
 });
 
+// Fetches all fundraisers with their corresponding category data.
+app.get('/fundraisers/all', (req, res) => {
+  connection.query('SELECT * FROM fundraiser f LEFT join category c ON f.CATEGORY_ID = c.CATEGORY_ID', (err, records) => {
+    if (err) {
+      console.log("Query error");
+    } else {
+      res.send(records)
+    }
+  })
+});
+
 // Fetches all categories available in the database.
 app.get('/categories', (req, res) => {
   connection.query('SELECT * FROM category', (err, records) => {
@@ -124,9 +135,9 @@ app.post("/fundraiser", (req, res) => {
         res.send(records)
       }
     });
+  } else {
+    res.status(400).send({ "message": "Missing fields." })
   }
-
-  res.status(400).send({ "message": "Missing fields." })
 });
 
 app.put("/fundraiser/:id", (req, res) => {
@@ -148,9 +159,11 @@ app.put("/fundraiser/:id", (req, res) => {
           res.send(records)
         }
       });
+  } else {
+    res.status(400).send({ "message": "Missing fields." })
   }
 
-  res.status(400).send({ "message": "Missing fields." })
+
 });
 
 app.delete("/fundraiser/:id", (req, res) => {

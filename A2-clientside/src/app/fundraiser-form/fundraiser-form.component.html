@@ -1,0 +1,35 @@
+<!-- Header Section -->
+<header>
+  <nav>
+    <div class="logo">Fundraiser</div>
+  </nav>
+</header>
+
+<!-- Main Content Section -->
+<main>
+  <section class="fundraisers-list">
+    <h2>{{!fundraiser ? 'Create Fundraiser' : 'Edit Fundraiser'}}</h2>
+    <form class="search-form">
+      <input id="organizer" placeholder="Organizer" name="organizer" [(ngModel)]="organizer" />
+      <input id="caption" placeholder="Caption" name="caption" [(ngModel)]="caption" />
+      <input id="targetFunding" placeholder="Target Funding" name="targetFunding" [(ngModel)]="targetFunding" />
+      <input id="currentFunding" placeholder="Current Funding" name="currentFunding" [(ngModel)]="currentFunding" />
+      <input id="city" placeholder="City" name="city" [(ngModel)]="city" />
+      <select id="active" name="active" [(ngModel)]="active">
+        <option value="0">Inactive</option>
+        <option value="1">Active</option>
+      </select>
+      <select id="category" name="category" [(ngModel)]="category" style="width: 88%">
+        <option value="">All Categories</option>
+        <option *ngFor="let category of categories" [value]="category.CATEGORY_ID">{{category.NAME}}</option>
+      </select>
+      <button class="btn primary" (click)="createFundraiser()">{{!fundraiser ? 'Create Fundraiser' : 'Edit Fundraiser'}}</button>
+    </form>
+  </section>
+</main>
+
+<!-- Footer Section -->
+<footer>
+  <p>Contact Us: zbzzh&#64;msn.com | +1 (987) 654-3210</p>
+  <p>789 Unity Avenue, Floor 5, Caretown, NY 10001, United States</p>
+</footer>

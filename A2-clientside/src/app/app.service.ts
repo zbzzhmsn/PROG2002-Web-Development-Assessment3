@@ -14,6 +14,10 @@ export class AppService {
     return this.httpClient.get("http://localhost:8080/fundraisers")
   }
 
+  getFundraisersAll(): Observable<any> {
+    return this.httpClient.get("http://localhost:8080/fundraisers/all")
+  }
+
   getCategories(): Observable<any> {
     return this.httpClient.get("http://localhost:8080/categories")
   }

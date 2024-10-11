@@ -192,3 +192,55 @@ footer {
   font-weight: 700;
   text-align: center;
 }
+
+.fundraisers-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #2a2a2a;
+  color: #eaeaea;
+}
+
+.fundraisers-table th, .fundraisers-table td {
+  border: 1px solid #444;
+  padding: 10px;
+  text-align: left;
+}
+
+.fundraisers-table th {
+  background-color: #444;
+  font-weight: bold;
+  color: #f0f0f0;
+}
+
+.fundraisers-table tr:nth-child(even) {
+  background-color: #333;
+}
+
+.fundraisers-table tr:nth-child(odd) {
+  background-color: #2a2a2a;
+}
+
+.fundraisers-table tr:hover {
+  background-color: #555;
+}
+
+.status.active {
+  color: #4caf50;
+  font-weight: bold;
+  background-color: initial;
+}
+
+.status.inactive {
+  color: #f44336;
+  font-weight: bold;
+  background-color: initial;
+}
+
+.fundraisers-table caption {
+  font-size: 18px;
+  margin-bottom: 10px;
+  text-align: left;
+  font-weight: bold;
+  color: #f0f0f0;
+}

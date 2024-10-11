@@ -9,6 +9,8 @@ import { FundraiserComponent } from './fundraiser/fundraiser.component';
 import { HttpClientModule } from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {DonationComponent} from "./donation/donation.component";
+import {AdminComponent} from "./admin/admin.component";
+import {FundraiserFormComponent} from "./fundraiser-form/fundraiser-form.component";
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import {DonationComponent} from "./donation/donation.component";
     IndexComponent,
     SearchComponent,
     FundraiserComponent,
-    DonationComponent
+    DonationComponent,
+    AdminComponent,
+    FundraiserFormComponent
   ],
   imports: [
     BrowserModule,
