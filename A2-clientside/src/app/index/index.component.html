@@ -3,9 +3,8 @@
   <nav>
     <div class="logo">Fundraiser</div>
     <ul class="nav-links">
-      <li><a href="./index.html">Home</a></li>
-      <li><a href="./search.html">Search</a></li>
-      <li><a href="./fundraiser.html">Fundraiser Details</a></li>
+      <li><a routerLink="/">Home</a></li>
+      <li><a routerLink="/search">Search</a></li>
     </ul>
   </nav>
   <section class="hero">
@@ -18,7 +17,20 @@
 <main>
   <section class="fundraisers-list">
     <h2>Active Fundraisers</h2>
-    <div id="fundraisers_list" class="grid"></div>
+    <div id="fundraisers_list" class="grid">
+      <div *ngFor="let fundraiser of fundraisers" class="fundraiser-card" routerLink="/fundraiser/{{fundraiser.FUNDRAISER_ID}}">
+        <h3>{{fundraiser.ORGANIZER}}</h3>
+        <p><strong>ID:</strong> {{fundraiser.FUNDRAISER_ID}}</p>
+        <p><strong>Caption:</strong> {{fundraiser.CAPTION}}</p>
+        <p><strong>Target:</strong> {{fundraiser.TARGET_FUNDING}} AUD</p>
+        <p><strong>Current:</strong> {{fundraiser.CURRENT_FUNDING}} AUD</p>
+        <p><strong>City:</strong> {{fundraiser.CITY}}</p>
+        <p class="status ${fundraiser.ACTIVE === 1 ? 'active' : 'inactive'}">
+          {{fundraiser.ACTIVE === 1 ? 'Active' : 'Suspended'}}
+        </p>
+        <p><strong>Category:</strong> {{fundraiser.NAME}}</p>
+      </div>
+    </div>
   </section>
 </main>
 

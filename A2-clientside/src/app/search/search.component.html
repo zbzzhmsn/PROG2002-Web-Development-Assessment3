@@ -3,9 +3,8 @@
   <nav>
     <div class="logo">Fundraiser</div>
     <ul class="nav-links">
-      <li><a href="./index.html">Home</a></li>
-      <li><a href="./search.html">Search</a></li>
-      <li><a href="./fundraiser.html">Fundraiser Details</a></li>
+      <li><a routerLink="/">Home</a></li>
+      <li><a routerLink="/search">Search</a></li>
     </ul>
   </nav>
 </header>
@@ -14,18 +13,36 @@
 <main>
   <div class="search">
     <h1>Find Fundraisers</h1>
-    <form onsubmit="searchFundraisers(event)" class="search-form">
-      <input id="organizer" placeholder="Organizer" />
-      <input id="city" placeholder="City" />
-      <select id="category">
+    <form (ngSubmit)="searchFundraisers()" (reset)="reset()" class="search-form">
+      <input id="organizer" placeholder="Organizer" name="organizer" [(ngModel)]="organizer" />
+      <input id="city" placeholder="City" name="city" [(ngModel)]="city" />
+      <select id="category" name="category" [(ngModel)]="category">
         <option value="">All Categories</option>
+        <option *ngFor="let category of categories" [value]="category.CATEGORY_ID">{{category.NAME}}</option>
       </select>
       <button type="submit" class="btn primary">Search</button>
       <button type="reset" class="btn secondary">Clear</button>
     </form>
   </div>
 
-  <div id="fundraisers_list" class="grid fundraisers-list"></div>
+  <div *ngIf="fundraisers.length > 0" id="fundraisers_list" class="grid fundraisers-list">
+    <div *ngFor="let fundraiser of fundraisers" class="fundraiser-card" routerLink="/fundraiser/{{fundraiser.FUNDRAISER_ID}}">
+      <h3>{{fundraiser.ORGANIZER}}</h3>
+      <p><strong>ID:</strong> {{fundraiser.FUNDRAISER_ID}}</p>
+      <p><strong>Caption:</strong> {{fundraiser.CAPTION}}</p>
+      <p><strong>Target:</strong> {{fundraiser.TARGET_FUNDING}} AUD</p>
+      <p><strong>Current:</strong> {{fundraiser.CURRENT_FUNDING}} AUD</p>
+      <p><strong>City:</strong> {{fundraiser.CITY}}</p>
+      <p class="status ${fundraiser.ACTIVE === 1 ? 'active' : 'inactive'}">
+        {{fundraiser.ACTIVE === 1 ? 'Active' : 'Suspended'}}
+      </p>
+      <p><strong>Category:</strong> {{fundraiser.NAME}}</p>
+    </div>
+  </div>
+
+  <div *ngIf="fundraisers.length === 0" class="grid fundraisers-list">
+    <div class="no-results">No fundraisers found.</div>
+  </div>
 </main>
 
 <!-- Footer Section -->
