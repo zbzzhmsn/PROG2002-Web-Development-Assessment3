@@ -1,1 +1,35 @@
-<p>search works!</p>
+<!-- Header Section -->
+<header>
+  <nav>
+    <div class="logo">Fundraiser</div>
+    <ul class="nav-links">
+      <li><a href="./index.html">Home</a></li>
+      <li><a href="./search.html">Search</a></li>
+      <li><a href="./fundraiser.html">Fundraiser Details</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Main Content Section -->
+<main>
+  <div class="search">
+    <h1>Find Fundraisers</h1>
+    <form onsubmit="searchFundraisers(event)" class="search-form">
+      <input id="organizer" placeholder="Organizer" />
+      <input id="city" placeholder="City" />
+      <select id="category">
+        <option value="">All Categories</option>
+      </select>
+      <button type="submit" class="btn primary">Search</button>
+      <button type="reset" class="btn secondary">Clear</button>
+    </form>
+  </div>
+
+  <div id="fundraisers_list" class="grid fundraisers-list"></div>
+</main>
+
+<!-- Footer Section -->
+<footer>
+  <p>Contact Us: zbzzh@msn.com | +1 (987) 654-3210</p>
+  <p>789 Unity Avenue, Floor 5, Caretown, NY 10001, United States</p>
+</footer>
