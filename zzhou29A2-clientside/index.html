@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fundraiser Platform</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body onload="init()">
+<!-- Header Section -->
+<header>
+  <nav>
+    <div class="logo">Fundraiser</div>
+    <ul class="nav-links">
+      <li><a href="./index.html">Home</a></li>
+      <li><a href="./search.html">Search</a></li>
+      <li><a href="./fundraiser.html">Fundraiser Details</a></li>
+    </ul>
+  </nav>
+  <section class="hero">
+    <h1>Welcome to the Fundraiser Platform</h1>
+    <p>Empowering communities through compassion and generosity.</p>
+  </section>
+</header>
+
+<!-- Main Content Section -->
+<main>
+  <section class="fundraisers-list">
+    <h2>Active Fundraisers</h2>
+    <div id="fundraisers_list" class="grid"></div>
+  </section>
+</main>
+
+<!-- Footer Section -->
+<footer>
+  <p>Contact Us: zbzzh@msn.com | +1 (987) 654-3210</p>
+  <p>789 Unity Avenue, Floor 5, Caretown, NY 10001, United States</p>
+</footer>
+
+<script>
+  function init() {
+    fetch('http://localhost:8080/fundraisers')
+            .then(response => response.json())
+            .then(response => {
+              const fundraisersList = document.getElementById("fundraisers_list");
+              response.forEach(fundraiser => {
+                fundraisersList.innerHTML += `
+                <div class="fundraiser-card">
+                    <h3>${fundraiser.ORGANIZER}</h3>
+                    <p><strong>ID:</strong> ${fundraiser.FUNDRAISER_ID}</p>
+                    <p><strong>Caption:</strong> ${fundraiser.CAPTION}</p>
+                    <p><strong>Target:</strong> ${fundraiser.TARGET_FUNDING} AUD</p>
+                    <p><strong>Current:</strong> ${fundraiser.CURRENT_FUNDING} AUD</p>
+                    <p><strong>City:</strong> ${fundraiser.CITY}</p>
+                    <p class="status ${fundraiser.ACTIVE === 1 ? 'active' : 'inactive'}">
+                        ${fundraiser.ACTIVE === 1 ? 'Active' : 'Suspended'}
+                    </p>
+                    <p><strong>Category:</strong> ${fundraiser.NAME}</p>
+                </div>`;
+              });
+            })
+  }
+</script>
+</body>
+</html>

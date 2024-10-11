@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundraiser Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body onload="init()">
+<!-- Header Section -->
+<header>
+    <nav>
+        <div class="logo">Fundraiser</div>
+        <ul class="nav-links">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./search.html">Search</a></li>
+            <li><a href="./fundraiser.html">Fundraiser Details</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Main Content Section -->
+<main>
+    <section class="fundraisers-list">
+        <h2>Fundraiser Details</h2>
+        <div id="fundraisers_list" class="grid"></div>
+    </section>
+</main>
+
+<!-- Footer Section -->
+<footer>
+    <p>Contact Us: zbzzh@msn.com | +1 (987) 654-3210</p>
+    <p>789 Unity Avenue, Floor 5, Caretown, NY 10001, United States</p>
+</footer>
+
+<script>
+  function init() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+
+    fetch(`http://localhost:8080/fundraisers/${id}`)
+      .then(response => response.json())
+      .then(response => {
+        const fundraisersList = document.getElementById("fundraisers_list");
+        response.forEach(fundraiser => {
+          const fundraiserCard = document.createElement('div');
+          fundraiserCard.classList.add("fundraiser-card");
+
+          fundraiserCard.innerHTML += `
+            <h3>${fundraiser.ORGANIZER}</h3>
+            <p><strong>ID:</strong> ${fundraiser.FUNDRAISER_ID}</p>
+            <p><strong>Caption:</strong> ${fundraiser.CAPTION}</p>
+            <p><strong>Target:</strong> ${fundraiser.TARGET_FUNDING} AUD</p>
+            <p><strong>Current:</strong> ${fundraiser.CURRENT_FUNDING} AUD</p>
+            <p><strong>City:</strong> ${fundraiser.CITY}</p>
+            <p class="status ${fundraiser.ACTIVE === 1 ? 'active' : 'inactive'}">
+                ${fundraiser.ACTIVE === 1 ? 'Active' : 'Suspended'}
+            </p>
+            <p><strong>Category:</strong> ${fundraiser.NAME}</p>
+        `;
+
+          const donateBtn = document.createElement('button');
+          donateBtn.className = 'btn primary';
+          donateBtn.textContent = "Donate";
+          donateBtn.addEventListener("click", function() {
+            alert("This feature is under contruction");
+          });
+
+          fundraiserCard.append(donateBtn);
+          fundraisersList.append(fundraiserCard)
+        });
+      })
+  }
+</script>
+</body>
+</html>
+

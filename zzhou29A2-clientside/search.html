@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fundraiser Platform</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body onload="init()">
+<!-- Header Section -->
+<header>
+  <nav>
+    <div class="logo">Fundraiser</div>
+    <ul class="nav-links">
+      <li><a href="./index.html">Home</a></li>
+      <li><a href="./search.html">Search</a></li>
+      <li><a href="./fundraiser.html">Fundraiser Details</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Main Content Section -->
+<main>
+  <div class="search">
+    <h1>Find Fundraisers</h1>
+    <form onsubmit="searchFundraisers(event)" class="search-form">
+      <input id="organizer" placeholder="Organizer" />
+      <input id="city" placeholder="City" />
+      <select id="category">
+        <option value="">All Categories</option>
+      </select>
+      <button type="submit" class="btn primary">Search</button>
+      <button type="reset" class="btn secondary">Clear</button>
+    </form>
+  </div>
+
+  <div id="fundraisers_list" class="grid fundraisers-list"></div>
+</main>
+
+<!-- Footer Section -->
+<footer>
+  <p>Contact Us: zbzzh@msn.com | +1 (987) 654-3210</p>
+  <p>789 Unity Avenue, Floor 5, Caretown, NY 10001, United States</p>
+</footer>
+
+<script>
+  function init() {
+    fetch('http://localhost:8080/categories')
+            .then(response => response.json())
+            .then(response => {
+              const category = document.getElementById("category");
+              response.forEach(categoryData => {
+                const option = document.createElement('option');
+                option.value = categoryData.CATEGORY_ID;
+                option.textContent = categoryData.NAME;
+                category.appendChild(option);
+              });
+            });
+  }
+
+  function searchFundraisers(e) {
+    e.preventDefault();
+
+    const organizer = document.getElementById("organizer").value;
+    const city = document.getElementById("city").value;
+    const category = document.getElementById("category").value;
+    const fundraisersList = document.getElementById("fundraisers_list");
+
+    if (!organizer && !city && !category) {
+      alert("You must enter at least one search criteria.");
+      return;
+    }
+
+    fundraisersList.innerHTML = '';
+
+    fetch(`http://localhost:8080/fundraisers/search?organizer=${organizer}&city=${city}&category=${category}`)
+            .then(response => response.json())
+            .then(data => {
+              if (data.length > 0) {
+                data.forEach(fundraiser => {
+                  const card = document.createElement('div');
+                  card.classList.add('fundraiser-card');
+
+                  card.innerHTML = `
+                        <h3>${fundraiser.ORGANIZER}</h3>
+                        <p><strong>ID:</strong> ${fundraiser.FUNDRAISER_ID}</p>
+                        <p><strong>Caption:</strong> ${fundraiser.CAPTION}</p>
+                        <p><strong>Target Funding:</strong> ${fundraiser.TARGET_FUNDING} AUD</p>
+                        <p><strong>Current Funding:</strong> ${fundraiser.CURRENT_FUNDING} AUD</p>
+                        <p><strong>City:</strong> ${fundraiser.CITY}</p>
+                        <p class="status ${fundraiser.ACTIVE === 1 ? 'active' : 'suspended'}">
+                            ${fundraiser.ACTIVE === 1 ? 'Active' : 'Suspended'}
+                        </p>
+                        <p><strong>Category:</strong> ${fundraiser.NAME}</p>
+                    `;
+
+                  card.addEventListener("click", function() {
+                    window.location.href = `./fundraiser.html?id=${fundraiser.FUNDRAISER_ID}`
+                  });
+
+                  fundraisersList.appendChild(card);
+                });
+              } else {
+                fundraisersList.innerHTML = `<div class="no-results">No fundraisers found.</div>`;
+              }
+            });
+  }
+</script>
+</body>
+</html>
