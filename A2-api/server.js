@@ -106,7 +106,7 @@ app.post("/fundraiser/donations", (req, res) => {
   });
 });
 
-app.post("/fundraiser/donations", (req, res) => {
+app.post("/fundraiser", (req, res) => {
   var organizer = req.body.organizer
   var caption = req.body.caption
   var targetFunding = req.body.targetFunding
@@ -129,7 +129,7 @@ app.post("/fundraiser/donations", (req, res) => {
   res.status(400).send({ "message": "Missing fields." })
 });
 
-app.put("/fundraiser/donations/:id", (req, res) => {
+app.put("/fundraiser/:id", (req, res) => {
   var id = req.params.id
   var organizer = req.body.organizer
   var caption = req.body.caption
