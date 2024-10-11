@@ -48,6 +48,17 @@ export class FundraiserFormComponent {
 
   createFundraiser() {
     if (this.organizer && this.caption && this.targetFunding && this.currentFunding && this.city && this.category) {
+
+      if (!/^(?:[6-9]|\d{2,})$/.test(this.targetFunding)) {
+        alert("Target funding should be an array and greater than 5")
+        return
+      }
+
+      if (!/^(?:[6-9]|\d{2,})$/.test(this.currentFunding)) {
+        alert("Current funding should be an array and greater than 5")
+        return
+      }
+
       if (!this.fundraiser) {
         this.appService.createFundraiser(this.organizer, this.caption, Number(this.targetFunding),
           Number(this.currentFunding), this.city, Number(this.active), Number(this.category))
