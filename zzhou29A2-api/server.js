@@ -106,6 +106,65 @@ app.post("/fundraiser/donations", (req, res) => {
   });
 });
 
+app.post("/fundraiser/donations", (req, res) => {
+  var organizer = req.body.organizer
+  var caption = req.body.caption
+  var targetFunding = req.body.targetFunding
+  var currentFunding = req.body.currentFunding
+  var city = req.body.city
+  var active = req.body.active
+  var categoryId = req.body.categoryId
+
+  if (organizer && caption && targetFunding && currentFunding && city && categoryId) {
+    connection.query("INSERT INTO fundraiser(ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, ACTIVE, CATEGORY_ID) VALUES(?,?,?,?,?,?,?)",
+      [organizer, caption, targetFunding, currentFunding, city, active, categoryId], (err, records) => {
+      if (err) {
+        console.log("Create error", err);
+      } else {
+        res.send(records)
+      }
+    });
+  }
+
+  res.status(400).send({ "message": "Missing fields." })
+});
+
+app.put("/fundraiser/donations/:id", (req, res) => {
+  var id = req.params.id
+  var organizer = req.body.organizer
+  var caption = req.body.caption
+  var targetFunding = req.body.targetFunding
+  var currentFunding = req.body.currentFunding
+  var city = req.body.city
+  var active = req.body.active
+  var categoryId = req.body.categoryId
+
+  if (organizer && caption && targetFunding && currentFunding && city && categoryId) {
+    connection.query('UPDATE FUNDRAISER SET ORGANIZER = ?, CAPTION = ?, TARGET_FUNDING = ?, CURRENT_FUNDING = ?, CITY = ?, ACTIVE = ?, CATEGORY_ID = ? WHERE FUNDRAISER_ID = ?',
+      [organizer, caption, targetFunding, currentFunding, city, active, categoryId, id], (err, records) => {
+        if (err) {
+          console.log("Update error", err);
+        } else {
+          res.send(records)
+        }
+      });
+  }
+
+  res.status(400).send({ "message": "Missing fields." })
+});
+
+app.delete("/fundraiser/:id", (req, res) => {
+  var id = req.params.id
+
+  connection.query('DELETE FROM FUNDRAISER WHERE FUNDRAISER_ID = ' + id, (err, records) => {
+      if (err) {
+        console.log("Delete error", err);
+      } else {
+        res.send(records)
+      }
+    });
+});
+
 // Start the server and listen on port 8080
 app.listen(8080, function() {
   console.log(`Crowdfunding app listening on port 8080`);
