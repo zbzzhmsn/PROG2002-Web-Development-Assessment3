@@ -29,6 +29,15 @@
         <button class="btn primary">Donate</button>
       </div>
     </div>
+
+    <h2>Donation List</h2>
+    <div id="fundraisers_list" class="grid">
+      <div class="fundraiser-card" *ngFor="let donation of donations" style="width: 220px">
+        <h3>{{donation.GIVER}}</h3>
+        <p><strong>Amount:</strong> {{donation.AMOUNT}} AUD</p>
+        <p><strong>Date:</strong> {{donation.DATE | date: 'short'}}</p>
+      </div>
+    </div>
   </section>
 </main>
 

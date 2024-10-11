@@ -9,6 +9,7 @@ import {AppService} from "../app.service";
 })
 export class FundraiserComponent {
   fundraiser: any = null
+  donations: any = []
 
   constructor(private route: ActivatedRoute, private appService: AppService) {
     this.route.params.subscribe(res => {
@@ -17,6 +18,10 @@ export class FundraiserComponent {
           if (response.length > 0) {
             this.fundraiser = response[0]
           }
+        })
+
+        this.appService.getDonations(res['id']).subscribe(response => {
+          this.donations = response
         })
       }
     })
