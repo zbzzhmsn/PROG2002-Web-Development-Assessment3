@@ -20,6 +20,18 @@ CREATE TABLE `fundraiser`  (
   FOREIGN KEY (`CATEGORY_ID`) REFERENCES `category` (`CATEGORY_ID`)
 );
 
+DROP TABLE IF EXISTS `donation`;
+CREATE TABLE `donation`  (
+  `DONATION_ID` int NOT NULL AUTO_INCREMENT,
+  `DATE` DATE,
+  `AMOUNT` decimal(10, 0) NULL DEFAULT NULL,
+  `GIVER` varchar(255),
+  `FUNDRAISER_ID` int NULL DEFAULT NULL,
+  PRIMARY KEY (`DONATION_ID`),
+  FOREIGN KEY (`FUNDRAISER_ID`) REFERENCES `fundraiser` (`FUNDRAISER_ID`)
+);
+
+
 
 INSERT INTO `category` VALUES (1, 'medical');
 INSERT INTO `category` VALUES (2, 'education');
@@ -37,3 +49,16 @@ INSERT INTO `fundraiser` VALUES (22, 'Laura Miller', 'Church restoration project
 INSERT INTO `fundraiser` VALUES (23, 'Chris Lee', 'Fund new tech startup', 25000, 5000, 'Seattle', 1, 4);
 INSERT INTO `fundraiser` VALUES (24, 'Sophia Davis', 'Charity marathon for cancer', 15000, 7000, 'Boston', 1, 2);
 INSERT INTO `fundraiser` VALUES (25, 'Daniel Wilson', 'Homeless shelter food drive', 6000, 2500, 'Denver', 1, 3);
+
+INSERT INTO `donation` (DONATION_ID, `DATE`, `AMOUNT`, `GIVER`, `FUNDRAISER_ID`) VALUES
+(1, '2024-09-01', 500, 'Alice Johnson', 16),
+(2, '2024-09-03', 300, 'Bob Smith', 17),
+(3, '2024-09-05', 1000, 'Charlie Adams', 18),
+(4, '2024-09-07', 150, 'Dana White', 19),
+(5, '2024-09-09', 200, 'Ella Roberts', 20),
+(6, '2024-09-11', 1200, 'Frank Martin', 21),
+(7, '2024-09-13', 500, 'George Turner', 22),
+(8, '2024-09-15', 2500, 'Helen King', 23),
+(9, '2024-09-17', 800, 'Ivy Thomas', 24),
+(10, '2024-09-19', 600, 'Jack Wilson', 25);
+
