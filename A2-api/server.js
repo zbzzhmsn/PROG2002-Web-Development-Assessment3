@@ -95,9 +95,9 @@ app.post("/fundraiser/donations", (req, res) => {
   var date = new Date()
   var giver = req.body.giver
   var amount = req.body.amount
-  var fundraiseId = req.body.fundraiseId
+  var fundraiserId = req.body.fundraiserId
 
-  connection.query('INSERT INTO donation(DATE, AMOUNT, GIVER, FUNDRAISER_ID) VALUES(?,?,?,?)', [date, amount, giver, fundraiseId], (err, records) => {
+  connection.query('INSERT INTO donation(DATE, AMOUNT, GIVER, FUNDRAISER_ID) VALUES(?,?,?,?)', [date, amount, giver, fundraiserId], (err, records) => {
     if (err) {
       console.log("Query error", err);
     } else {

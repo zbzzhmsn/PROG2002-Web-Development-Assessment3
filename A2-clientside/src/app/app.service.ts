@@ -37,7 +37,7 @@ export class AppService {
   }
 
   createDonations(giver:string, amount: number, fundraiserId: number): Observable<any> {
-    return this.httpClient.post("http://localhost:8080/fundraiser", {
+    return this.httpClient.post("http://localhost:8080/fundraiser/donations", {
       giver,
       amount,
       fundraiserId

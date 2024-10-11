@@ -25,20 +25,18 @@
           {{fundraiser.ACTIVE === 1 ? 'Active' : 'Suspended'}}
         </p>
         <p><strong>Category:</strong> {{fundraiser.NAME}}</p>
-
-        <button class="btn primary" routerLink="/donation/{{fundraiser.FUNDRAISER_ID}}">Donate</button>
-      </div>
-    </div>
-
-    <h2>Donation List</h2>
-    <div class="grid">
-      <div class="fundraiser-card" *ngFor="let donation of donations" style="width: 220px">
-        <h3>{{donation.GIVER}}</h3>
-        <p><strong>Amount:</strong> {{donation.AMOUNT}} AUD</p>
-        <p><strong>Date:</strong> {{donation.DATE | date: 'short'}}</p>
       </div>
     </div>
   </section>
+
+  <div class="search">
+    <form class="search-form">
+      <input id="giver" placeholder="Giver" name="giver" [(ngModel)]="giver" />
+      <input id="amount" type="number" min="5" placeholder="Amount" name="amount" [(ngModel)]="amount" />
+
+      <button type="submit" class="btn primary" (click)="donate()">Submit my donation</button>
+    </form>
+  </div>
 </main>
 
 <!-- Footer Section -->
