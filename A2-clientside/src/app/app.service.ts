@@ -22,12 +22,13 @@ export class AppService {
     return this.httpClient.get("http://localhost:8080/categories")
   }
 
-  searchFundraisers(organizer: string, city: string, category: string): Observable<any> {
+  searchFundraisers(organizer: string, city: string, category: string, active: number): Observable<any> {
     return this.httpClient.get("http://localhost:8080/fundraisers/search", {
       params: {
         organizer,
         city,
-        category
+        category,
+        active
       }
     })
   }

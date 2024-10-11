@@ -12,6 +12,7 @@ export class SearchComponent {
   organizer = ""
   city = ""
   category = ""
+  active = ""
 
   constructor(private appService: AppService) {
   }
@@ -24,11 +25,11 @@ export class SearchComponent {
 
   searchFundraisers() {
     console.log(this.category)
-    if (!this.organizer && !this.city && !this.category) {
+    if (!this.organizer && !this.city && !this.category && this.active === "") {
       alert("You must enter at least one search criteria.");
       return;
     }
-    this.appService.searchFundraisers(this.organizer, this.city, this.category).subscribe(response => {
+    this.appService.searchFundraisers(this.organizer, this.city, this.category, Number(this.active)).subscribe(response => {
       this.fundraisers = response
     })
   }

@@ -20,6 +20,11 @@
         <option value="">All Categories</option>
         <option *ngFor="let category of categories" [value]="category.CATEGORY_ID">{{category.NAME}}</option>
       </select>
+      <select id="active" name="active" [(ngModel)]="active">
+        <option value="">Please select...</option>
+        <option value="0">Inactive</option>
+        <option value="1">Active</option>
+      </select>
       <button type="submit" class="btn primary">Search</button>
       <button type="reset" class="btn secondary">Clear</button>
     </form>
